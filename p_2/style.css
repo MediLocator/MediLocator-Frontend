@@ -5,11 +5,37 @@
     box-sizing: border-box;
 }
 
+/* 페이지 상단 제목 스타일 */
+.page-header {
+    background-color: #1E6091; /* 배경색 */
+    padding: 10px 20px; /* 상하, 좌우 여백을 좁게 설정 */
+    margin: 0; /* 페이지와 완전히 붙게 */
+    width: 100%; /* 전체 너비 */
+    position: fixed; /* 상단 고정 */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* 다른 요소 위로 오도록 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+}
+
+.page-header .title {
+    color: #FFFFFF; /* 글자색을 하얀색 */
+    font-size: 24px; /* 제목 크기를 약간 줄임 */
+    font-weight: bold;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+    line-height: 1.5;
+}
+
+/* 페이지 상단 제목에 따른 body 조정 */
 body {
     font-family: Arial, sans-serif;
     background-color: #99D98C;
+    margin-top: 60px; /* 고정된 헤더 아래 콘텐츠를 시작하기 위해 여백 추가 */
 }
 
+/* 병원 목록 및 지도 컨테이너 */
 .container {
     width: 100%;
     max-width: 1200px;
@@ -17,22 +43,7 @@ body {
     padding: 20px;
 }
 
-/* 헤더 부분 */
-.header {
-    background-color: #1E6091; /* 배경색 */
-    padding: 20px 40px; /* 좌우 여백 추가 */
-}
-
-.title {
-    color: #FFFFFF; /* 글씨색을 하얀색 */
-    font-size: 36px;
-    font-weight: bold;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    text-align: left; /* 왼쪽 정렬 */
-}
-
-/* 두 번째 페이지: 병원 목록 및 지도 레이아웃 */
+/* 병원 목록 및 지도 레이아웃 */
 .content {
     display: flex;
     justify-content: space-between;

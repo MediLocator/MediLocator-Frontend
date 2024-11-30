@@ -1,43 +1,41 @@
 /* 페이지 상단 제목 스타일 */
 .page-header {
     background-color: #1E6091; /* 배경색 */
-    padding: 20px 40px; /* 좌우 여백을 추가하여 글씨가 좌측에 붙지 않게 */
+    padding: 10px 20px; /* 상하, 좌우 여백을 좁게 설정 */
+    margin: 0; /* 페이지와 완전히 붙게 */
+    width: 100%; /* 전체 너비 */
+    position: fixed; /* 상단 고정 */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* 다른 요소 위로 오도록 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
 }
 
 .page-header .title {
     color: #FFFFFF; /* 글자색을 하얀색 */
-    font-size: 36px; /* 제목 크기 */
+    font-size: 24px; /* 제목 크기를 약간 줄임 */
     font-weight: bold;
     margin: 0;
     font-family: Arial, sans-serif;
     text-align: left; /* 텍스트 왼쪽 정렬 */
+    line-height: 1.5;
 }
-
 
 /* 병원 상세 페이지 스타일 */
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-}
 body {
     font-family: Arial, sans-serif;
     background-color: #99D98C;
+    margin: 0; /* 상단, 좌우 여백을 모두 제거 */
+    padding: 0; /* 기본 패딩 제거 */
 }
 
-/* 병원 이미지 */
-.hospital-image-container {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.hospital-image {
+/* 페이지 컨테이너 */
+.container {
     width: 100%;
-    max-width: 800px;
-    height: auto;
-    border-radius: 10px;
+    max-width: 1200px;
+    margin: 80px auto 0; /* 상단 고정된 헤더 아래로 공간 추가 */
+    padding: 20px;
+    font-family: Arial, sans-serif;
 }
 
 /* 병원 정보 카드 */
@@ -58,6 +56,7 @@ body {
     border-radius: 10px;
     overflow: hidden;
     margin: 20px 0;
+    padding: 10px; /* 내부 여백 추가 */
 }
 
 .hospital-text {

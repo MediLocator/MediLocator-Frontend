@@ -7,7 +7,7 @@ document.getElementById("locationSearchButton").addEventListener("click", functi
             var lon = position.coords.longitude;
 
             // 두 번째 페이지로 이동하며, 쿼리 파라미터로 위치 정보를 전달
-            window.location.href = `p_2.html?lat=${lat}&lon=${lon}`;
+            window.location.href = `../p_2/index.html?lat=${lat}&lon=${lon}`;
         }, function (error) {
             alert("위치 정보를 가져오는 데 실패했습니다.");
         });
@@ -15,7 +15,6 @@ document.getElementById("locationSearchButton").addEventListener("click", functi
         alert("이 브라우저는 Geolocation을 지원하지 않습니다.");
     }
 });
-
 
 // 병원 검색 버튼 클릭 이벤트
 document.getElementById("searchButton").addEventListener("click", () => {
