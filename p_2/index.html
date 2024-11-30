@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p_2</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <header class="page-header">
+            <h1 class="title">MediLocator</h1>
+        </header>
+
+        <main class="main">
+            <div class="content">
+                <section class="hospital-list">
+                    <h2>근처 병원 목록</h2>
+                    <div id="hospital-list"></div> <!-- 병원 목록을 여기에 표시 -->
+                </section>
+                <section class="map-container">
+                    <h2>지도</h2>
+                    <div id="map"></div> <!-- 지도 표시 영역 -->
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/map.js"></script>
+    <script>
+        // 페이지 로드 시 위치를 가져오고 병원 목록을 요청
+        window.onload = function () {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var lat = position.coords.latitude;
+                    var lon = position.coords.longitude;
+
+                    // 서버에 현재 위치 전송하여 병원 목록을 가져오기
+                    fetchHospitals(lat, lon);
+                    initializeMap(lat, lon);
+                });
+            } else {
+                alert("Geolocation이 지원되지 않습니다.");
+            }
+        };
+
+        // 병원 목록 가져오기 (서버에 POST 요청)
+        function fetchHospitals(lat, lon) {
+            const data = {
+                latitude: lat.toString(), // String 타입으로 변환하여 전송
+                longitude: lon.toString() // String 타입으로 변환하여 전송
+            };
+
+            fetch('http://localhost:8080/api/aaa', {
+                method: 'POST', // POST 방식으로 요청
+                headers: {
+                    'Content-Type': 'application/json' // JSON 형식으로 요청
+                },
+                body: JSON.stringify(data) // JSON으로 바꾸어 요청 body에 담기
+            })
+                .then(response => response.json())
+                .then(data => {
+                    displayHospitals(data);
+                })
+                .catch(error => {
+                    console.error('병원 데이터를 가져오는 데 실패했습니다.', error);
+                });
+        }
+
+        // 병원 목록을 페이지에 표시
+        function displayHospitals(hospitals) {
+            const hospitalListContainer = document.getElementById('hospital-list');
+            hospitalListContainer.innerHTML = ''; // 기존 목록 비우기
+
+            hospitals.forEach(hospital => {
+                const hospitalCard = document.createElement('div');
+                hospitalCard.classList.add('hospital-card');
+                hospitalCard.innerHTML = `
+                    <h3>${hospital.hospital_name}</h3>
+                    <p>병원 ID: ${hospital.hospital_id}</p>
+                `;
+                hospitalListContainer.appendChild(hospitalCard);
+            });
+        }
+
+        // 지도 초기화
+        function initializeMap(lat, lon) {
+            const mapOptions = {
+                center: new google.maps.LatLng(lat, lon),
+                zoom: 14,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+            };
+            const map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+            // 사용자 위치에 마커 추가
+            const marker = new google.maps.Marker({
+                position: { lat: lat, lng: lon },
+                map: map,
+                title: "현재 위치",
+            });
+        }
+    </script>
+</body>
+
+</html>
