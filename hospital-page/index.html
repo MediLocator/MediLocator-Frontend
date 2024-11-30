@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediLocator - 병원 검색 결과</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">MediLocator</h1>
+        </header>
+        <main class="main">
+            <section class="hospital-list">
+                <div class="hospital-card">
+                    <h2>서울 아프지마 정형외과</h2>
+                    <p>연락처: 010-9213-1241</p>
+                    <p>주소: 서울 마포구 123로 1239번길</p>
+                    <p>진료시간: 10:00~23:00</p>
+                </div>
+                <div class="hospital-card">
+                    <h2>서울 안다쳤어 신경외과</h2>
+                    <p>연락처: 010-123-1011</p>
+                    <p>주소: 서울 을지로 23로 19번길</p>
+                    <p>진료시간: 24시간운영</p>
+                </div>
+                <!-- 다른 병원 카드도 여기에 추가 -->
+            </section>
+            <section class="map-container">
+                <div id="map"></div>
+            </section>
+        </main>
+    </div>
+    <script src="./js/map.js"></script>
+</body>
+
+</html>
