@@ -1,44 +1,42 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>p_3</title>
+    <title>병원 상세 정보</title>
     <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
     <!-- 상단 제목 영역 -->
     <header class="page-header">
         <h1 class="title">MediLocator</h1>
     </header>
-    
+
     <div class="container">
-        
-        
         <main class="main">
-            <!-- 병원 이미지 -->
-            <section class="hospital-image-container">
-                <img src="hospital-image.jpg" alt="병원 이미지" class="hospital-image">
-            </section>
             
+
             <!-- 병원 정보 카드 -->
             <section class="hospital-info">
                 <div class="hospital-details">
                     <div class="hospital-text">
                         <h2 id="hospital-name">병원 이름</h2>
-                        <p id="contact">연락처: 010-1234-5678</p>
-                        <p id="address">주소: 서울시 마포구</p>
-                        <p id="hours">진료시간: 9:00 ~ 18:00</p>
-                        <p id="emergency">응급실 운영여부: 운영</p>
-                        <p id="waiting-patients">대기 환자 수: 5명</p>
-                        <p id="available">진료가능여부: 가능</p>
+                        <p id="contact">연락처: 정보 없음</p>
+                        <p id="address">주소: 정보 없음</p>
+                        <p id="category">카테고리: 정보 없음</p>
+                        <p id="total-doctors">의사 수: 0</p>
+                        
                     </div>
                 </div>
             </section>
+            
         </main>
     </div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+
     <script src="../js/p3.js"></script>
 </body>
+
 </html>

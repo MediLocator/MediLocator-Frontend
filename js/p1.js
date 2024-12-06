@@ -4,10 +4,10 @@ document.getElementById("locationSearchButton").addEventListener("click", functi
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             var lat = position.coords.latitude;
-            var lon = position.coords.longitude;
+            var lng = position.coords.longitude;
 
             // 두 번째 페이지로 이동하며, 쿼리 파라미터로 위치 정보를 전달
-            window.location.href = `../p_2/index.html?lat=${lat}&lon=${lon}`;
+            window.location.href = `../p_2/index.html?lat=${lat}&lng=${lng}`;
         }, function (error) {
             alert("위치 정보를 가져오는 데 실패했습니다.");
         });
@@ -20,8 +20,8 @@ document.getElementById("locationSearchButton").addEventListener("click", functi
 document.getElementById("searchButton").addEventListener("click", () => {
     const searchInput = document.getElementById("searchInput").value;
     if (searchInput.trim() !== "") {
+        
         alert(`"${searchInput}" 검색 중...`);
-        // 병원 검색 로직 추가
     } else {
         alert("검색어를 입력해주세요.");
     }

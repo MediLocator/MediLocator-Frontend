@@ -1,101 +1,110 @@
-let map;
-let userLocation = { lat: 0, lng: 0 };
-
-// Google Maps 초기화 및 사용자 위치 가져오기
-function initMap() {
-    // HTML 요소에 지도 생성
-    map = new google.maps.Map(document.getElementById("map"), {
-        center: userLocation,
-        zoom: 14,
-    });
-
-    // Geolocation을 통해 사용자 위치 가져오기
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            function (position) {
-                userLocation = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                };
-
-                // 지도 중심을 사용자 위치로 설정
-                map.setCenter(userLocation);
-
-                // 사용자 위치에 마커 추가
-                new google.maps.Marker({
-                    position: userLocation,
-                    map: map,
-                    title: "내 위치",
-                });
-
-                // 병원 목록 가져오기
-                fetchHospitals(userLocation.lat, userLocation.lng);
-            },
-            function () {
-                alert("위치 정보를 가져올 수 없습니다.");
-            }
-        );
-    } else {
-        alert("이 브라우저는 Geolocation을 지원하지 않습니다.");
-    }
-}
-
-// 병원 목록 가져오기 (서버 요청)
-function fetchHospitals(lat, lng) {
-    fetch(`http://localhost:8080/api/nearby-hospitals?lat=${lat}&lng=${lng}`)
-        .then((response) => response.json())
-        .then((hospitals) => {
-            displayHospitals(hospitals); // 병원 목록 표시
-            addMarkers(hospitals); // 병원 마커 추가
-        })
-        .catch((error) => {
-            console.error("병원 정보를 불러오지 못했습니다:", error);
-        });
-}
-
-// 병원 목록 표시
-function displayHospitals(hospitals) {
+document.addEventListener("DOMContentLoaded", () => {
     const hospitalList = document.getElementById("hospital-list");
-    hospitalList.innerHTML = ""; // 기존 목록 비우기
+    const mapContainer = document.getElementById("map");
 
-    hospitals.forEach((hospital) => {
-        const listItem = document.createElement("li");
-        listItem.className = "hospital-item";
-        listItem.innerHTML = `
-            <h3>${hospital.name}</h3>
-            <p>주소: ${hospital.address}</p>
-            <p>전화번호: ${hospital.phone}</p>
-        `;
-        listItem.addEventListener("click", () => {
-            map.setCenter({ lat: hospital.lat, lng: hospital.lon });
-            map.setZoom(16);
+    const urlParams = new URLSearchParams(window.location.search);
+    const userLat = parseFloat(urlParams.get("lat"));
+    const userLng = parseFloat(urlParams.get("lng"));
+
+    let map;
+    const markers = [];
+
+    if (userLat && userLng) {
+        initializeMap(userLat, userLng);
+        fetchNearbyHospitals(userLat, userLng);
+    } else {
+        alert("위치 정보가 URL에 포함되어 있지 않습니다.");
+    }
+
+    function initializeMap(lat, lng) {
+        map = new google.maps.Map(mapContainer, {
+            center: { lat: lat, lng: lng },
+            zoom: 16,
         });
-        hospitalList.appendChild(listItem);
-    });
-}
 
-// 병원 위치에 마커 추가
-function addMarkers(hospitals) {
-    hospitals.forEach((hospital) => {
-        const marker = new google.maps.Marker({
-            position: { lat: hospital.lat, lng: hospital.lon },
+        new google.maps.Marker({
+            position: { lat: lat, lng: lng },
             map: map,
-            title: hospital.name,
+            title: "현재 위치",
+            icon: {
+                url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+            },
         });
+    }
 
-        // 마커 클릭 이벤트
-        const infoWindow = new google.maps.InfoWindow({
-            content: `<div>
-                        <h3>${hospital.name}</h3>
-                        <p>${hospital.address}</p>
-                    </div>`,
+    async function fetchNearbyHospitals(latitude, longitude) {
+        try {
+            const response = await fetch(
+                `http://localhost:8080/api/hospital/nearby?lat=${latitude}&lng=${longitude}`
+            );
+
+            if (response.ok) {
+                const hospitals = await response.json();
+                displayHospitals(hospitals);
+                addMarkers(hospitals);
+            } else {
+                console.error("Failed to fetch hospitals:", response.status);
+            }
+        } catch (error) {
+            console.error("Error fetching hospitals:", error);
+        }
+    }
+
+    function displayHospitals(hospitals) {
+        const hospitalListContainer = document.getElementById("hospital-list");
+        hospitalListContainer.innerHTML = "";
+
+        hospitals.forEach((hospital, index) => {
+            const card = document.createElement("div");
+            card.classList.add("hospital-card");
+
+            const hospitalName = document.createElement("h3");
+            hospitalName.textContent = hospital.name;
+            card.appendChild(hospitalName);
+
+            const hospitalInfo = document.createElement("p");
+            hospitalInfo.textContent = `연락처: ${hospital.phoneNumber || '정보 없음'} | 주소: ${hospital.address || '정보 없음'} | 카테고리: ${hospital.category || '정보 없음'}`;
+            card.appendChild(hospitalInfo);
+
+            // 병원 카드 클릭: 지도 이동 및 마커 강조
+            card.addEventListener("click", () => {
+                const marker = markers[index];
+                if (marker) {
+                    map.setCenter(marker.getPosition());
+                    map.setZoom(18);
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                    setTimeout(() => marker.setAnimation(null), 1500);
+                }
+            });
+
+            // 병원 카드 더블 클릭: 병원 상세 페이지로 이동
+            card.addEventListener("dblclick", () => {
+                window.location.href = `../p_3/index.html?hospital_id=${hospital.id}`;
+            });
+
+            hospitalListContainer.appendChild(card);
         });
+    }
 
-        marker.addListener("click", () => {
-            infoWindow.open(map, marker);
+    function addMarkers(hospitals) {
+        hospitals.forEach((hospital) => {
+            const marker = new google.maps.Marker({
+                position: { lat: hospital.ycoordinate, lng: hospital.xcoordinate },
+                map: map,
+                title: hospital.name,
+            });
+
+            markers.push(marker);
+
+            marker.addListener("click", () => {
+                alert(`
+                    병원명: ${hospital.name}
+                    카테고리: ${hospital.category}
+                    주소: ${hospital.address}
+                    전화번호: ${hospital.phoneNumber}
+                    의사 수: ${hospital.totalDoctors}
+                `);
+            });
         });
-    });
-}
-
-// 페이지 로드 시 지도 초기화
-window.onload = initMap;
+    }
+});

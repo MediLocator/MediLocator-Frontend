@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>병원 목록 및 지도</title>
     <link rel="stylesheet" href="./style.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY" defer></script>
+    <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnIZ_uAb_EgQ4QTMTMsxrVbtvjKVWZ3DQ&loading=async&callback=initMap&libraries=map,marker">
+</script>
 </head>
 
 <body>
@@ -23,17 +25,17 @@
                     <ul id="hospital-list"></ul> <!-- 병원 목록 -->
                 </section>
 
-                <!-- 지도 섹션 -->
+
                 <section class="map-container">
                     <h2>지도</h2>
-                    <div id="map"></div> <!-- 지도 -->
+                    <div id="map" style="width: 100%; height: 400px;"></div> 
                 </section>
             </div>
         </main>
     </div>
 
     <!-- JavaScript 파일 -->
-    <script src="./p_2.js" defer></script>
+    <script src="../js/p2.js" defer></script>
 </body>
 
 </html>
