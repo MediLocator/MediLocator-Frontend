@@ -9,6 +9,17 @@
     left: 0;
     z-index: 1000; /* 다른 요소 위로 오도록 */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* 뒤로 가기 아이콘 */
+.back-link {
+    color: white;
+    font-size: 30px; /* 아이콘 크기 */
+    margin-right: 15px; /* 아이콘과 제목 간의 간격 */
+    text-decoration: none;
 }
 
 .page-header .title {
@@ -19,6 +30,7 @@
     font-family: Arial, sans-serif;
     text-align: left; /* 텍스트 왼쪽 정렬 */
     line-height: 1.5;
+    text-decoration: none; /* 밑줄 제거 */
 }
 
 /* 병원 상세 페이지 스타일 */

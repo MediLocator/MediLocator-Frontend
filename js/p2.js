@@ -82,6 +82,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.location.href = `../p_3/index.html?hospital_id=${hospital.id}`;
             });
 
+            // 병원 카드 안에 버튼 추가
+            const button = document.createElement("button");
+            button.textContent = "병원 상세보기";
+            button.classList.add("hospital-button");
+            button.addEventListener("click", () => {
+                window.location.href = `../p_3/index.html?hospital_id=${hospital.id}`;
+            });
+            card.appendChild(button);
+
             hospitalListContainer.appendChild(card);
         });
     }

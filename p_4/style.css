@@ -1,0 +1,136 @@
+/* 공통 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #99D98C;
+    margin-top: 60px; /* 고정된 헤더 아래 콘텐츠를 시작하기 위해 여백 추가 */
+}
+
+/* 페이지 상단 제목 스타일 */
+.page-header {
+    background-color: #1E6091; /* 배경색 */
+    padding: 10px 20px; /* 상하, 좌우 여백을 좁게 설정 */
+    margin: 0; /* 페이지와 완전히 붙게 */
+    width: 100%; /* 전체 너비 */
+    position: fixed; /* 상단 고정 */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* 다른 요소 위로 오도록 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* 뒤로 가기 아이콘 */
+.back-link {
+    color: white;
+    font-size: 30px; /* 아이콘 크기 */
+    margin-right: 15px; /* 아이콘과 제목 간의 간격 */
+    text-decoration: none;
+}
+
+/* 페이지 제목 스타일 */
+.page-header .title {
+    color: #FFFFFF; /* 글자색을 하얀색 */
+    font-size: 24px; /* 제목 크기를 약간 줄임 */
+    font-weight: bold;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+    line-height: 1.5;
+    text-decoration: none; /* 밑줄 제거 */
+}
+
+/* 버튼 스타일 */
+.header-button, .back-button {
+    background-color: #1E6091; /* 버튼 배경색 */
+    color: #fff; /* 버튼 글자색 */
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+/* 뒤로 가기 버튼 스타일 */
+.back-button {
+    background-color: #1E6091; /* 버튼 배경색 */
+    color: #fff; /* 버튼 글자색 */
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px; /* 제목과 간격 */
+    transition: background-color 0.3s ease;
+}
+
+/* 뒤로 가기 버튼 hover 효과 */
+.back-button:hover {
+    background-color: #145a7b; /* 버튼 hover 시 배경색 */
+}
+
+/* 버튼 hover 효과 */
+.header-button:hover, .back-button:hover {
+    background-color: #145a7b; /* 버튼 hover 시 배경색 */
+}
+
+/* 페이지 컨테이너 */
+.container {
+    width: 100%;
+    padding: 20px;
+}
+
+/* 병원 검색 결과 영역 */
+.search-results {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.hospital-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hospital-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.hospital-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.hospital-info {
+    font-size: 14px;
+    color: #555;
+}
+
+.details-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.details-link:hover {
+    text-decoration: underline;
+}
+
+/* 검색 결과가 없을 경우 */
+.no-results {
+    text-align: center;
+    font-size: 18px;
+    color: #888;
+}

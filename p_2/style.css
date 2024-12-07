@@ -16,6 +16,17 @@
     left: 0;
     z-index: 1000; /* 다른 요소 위로 오도록 */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* 뒤로 가기 아이콘 */
+.back-link {
+    color: white;
+    font-size: 30px; /* 아이콘 크기 */
+    margin-right: 15px; /* 아이콘과 제목 간의 간격 */
+    text-decoration: none;
 }
 
 .page-header .title {
@@ -26,6 +37,7 @@
     font-family: Arial, sans-serif;
     text-align: left; /* 텍스트 왼쪽 정렬 */
     line-height: 1.5;
+    text-decoration: none; /* 밑줄 제거 */
 }
 
 /* 페이지 상단 제목에 따른 body 조정 */
@@ -48,33 +60,35 @@ body {
     display: flex;
     justify-content: space-between;
     gap: 20px;
+    flex-wrap: wrap; /* 작은 화면에서 자동으로 레이아웃이 변경되도록 설정 */
 }
 
 /* 병원 목록 스타일 */
 .hospital-list {
     max-height: 475px; /* 최대 높이를 지정하여 스크롤이 생기도록 설정 */
-    overflow-y: auto;  /* 세로 스크롤 가능하게
-     설정 */
-    
-    width: 45%;
+    overflow-y: auto; /* 세로 스크롤 가능하게 설정 */
+    width: 48%; /* 리스트가 너무 넓지 않도록 수정 */
     background-color: #EDFDEA;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* 병원 목록 제목 */
 .hospital-list h2 {
     font-size: 24px;
     color: #333;
     margin-bottom: 15px;
 }
 
+/* 병원 카드 스타일 */
 .hospital-card {
     background-color: #DFE3DE;
     padding: 15px;
     margin-bottom: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out; /* 호버 효과를 부드럽게 */
 }
 
 .hospital-card h3 {
@@ -101,17 +115,16 @@ body {
     font-size: 16px;
 }
 
-
+/* 병원 카드 호버 효과 */
 .hospital-card:hover {
-    transform: scale(1.05);
+    transform: scale(1.05); /* 확대 효과 */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     background-color: #C0C0C0;
 }
 
-
 /* 지도 스타일 */
 .map-container {
-    width: 50%;
+    width: 48%; /* 지도 크기를 조정하여 두 영역을 균등하게 분할 */
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
@@ -133,10 +146,19 @@ body {
 
     .hospital-list,
     .map-container {
-        width: 100%;
+        width: 100%; /* 작은 화면에서 각 영역을 100%로 설정 */
     }
 
     #map {
         height: 300px;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .back-link {
+        margin-bottom: 10px;
     }
 }
